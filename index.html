@@ -1,0 +1,79 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="dist/jquery-simple-select-table.js"></script>
+  <link rel="stylesheet" href="dist/jquery-simple-select-table.css"></script>
+</head>
+<body>
+  <h1>Basic Table</h1>
+  <table id="basic" border="1">
+    <tr>
+      <th><input type="checkbox" /></th>
+      <th>header</th>
+      <th>header</th>
+    </tr>
+    <tr>
+      <td><input type="checkbox" /></td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" /></td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" /></td>
+      <td>3</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" /></td>
+      <td>4</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" disabled/></td>
+      <td>5</td>
+      <td>5</td>
+    </tr>
+  </table>
+  <script>
+  $('#basic').simpleSelectTable();
+  </script>
+
+  <h1>Callbacks</h1>
+  <table id="callbacks" border="1">
+    <tr>
+      <th><input type="checkbox" /></th>
+      <th>header</th>
+      <th>header</th>
+    </tr>
+    <tr data-id="1">
+      <td><input type="checkbox" /></td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr data-id="2">
+      <td><input type="checkbox" /></td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr data-id="3">
+      <td><input type="checkbox" /></td>
+      <td>3</td>
+      <td>3</td>
+    </tr>
+  </table>
+  <div id="message"></div>
+  <script>
+  $('#callbacks').simpleSelectTable({
+  }).on('row:selected', function(e, $row) {
+    $('#message').append('selected: ' + $row.data('id') + ' ');
+  }).on('row:unselected', function(e, $row) {
+    $('#message').append('unselected: ' + $row.data('id') + ' ');
+  });
+  </script>
+</body>
+</html>

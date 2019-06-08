@@ -1,0 +1,5 @@
+{
+  "name": "@kanety/jquery-simple-select-table",
+  "version": "0.1.0",
+  "main": "dist/jquery-simple-select-table.js"
+}
