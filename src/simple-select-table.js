@@ -97,9 +97,9 @@ export default class SimpleSelectTable {
   }
 
   click($next, shift = false, ctrl = false) {
-    let $curr = this.$table.find('tr.row-selected')
+    let $curr = this.$current;
 
-    if (shift && $curr.length) {
+    if (shift && $curr && $curr.length) {
       this.setChecked(false);
       this.checkBetween($curr, $next);
     } else if (ctrl) {
@@ -117,7 +117,7 @@ export default class SimpleSelectTable {
   }
 
   select($row) {
-    if ($row.length) {
+    if ($row && $row.length) {
       this.$current = $row;
       $row.addClass('row-selected');
       this.$table.trigger('row:selected', [$row]);
@@ -125,7 +125,7 @@ export default class SimpleSelectTable {
   }
 
   unselect($row) {
-    if ($row.length) {
+    if ($row && $row.length) {
       $row.removeClass('row-selected');
       this.$table.trigger('row:unselected', [$row]);
       this.$current = null;
