@@ -1,6 +1,6 @@
 # jquery-simple-select-table
 
-A jquery plugin for table with selectable rows and checkbox.
+A jquery plugin for table with selectable rows and checkboxes.
 
 ## Dependencies
 
@@ -13,6 +13,8 @@ Install from npm:
     $ npm install @kanety/jquery-simple-select-table --save
 
 ## Usage
+
+Build html as follows:
 
 ```html
 <table>
@@ -41,18 +43,6 @@ Then run:
 $('table').simpleSelectTable();
 ```
 
-### Callbacks
-
-```javascript
-$('table').simpleSelectTable({
-  ...
-}).on('row:selected', function(e, $row) {
-  ...
-}).on('row:unselected', function(e, $row) {
-  ...
-});
-```
-
 ### Options
 
 Selector options:
@@ -65,13 +55,25 @@ $('table').simpleSelectTable({
 });
 ```
 
-Event options:
+Feature options:
 
 ```javascript
 $('table').simpleSelectTable({
   useShiftClick: true,
   useCtrlClick: true,
   useUpDownKey: true
+});
+```
+
+### Callbacks
+
+```javascript
+$('table').simpleSelectTable({
+  ...
+}).on('row:selected', function(e, $row) {
+  ...
+}).on('row:unselected', function(e, $row) {
+  ...
 });
 ```
 

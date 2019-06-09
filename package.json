@@ -1,6 +1,6 @@
 {
   "name": "@kanety/jquery-simple-select-table",
-  "description": "A jquery plugin for table with selectable rows and checkbox",
+  "description": "A jquery plugin for table with selectable rows and checkboxes",
   "version": "0.1.0",
   "author": "Yoshikazu Kaneta <kaneta@sitebridge.co.jp>",
   "repository": {

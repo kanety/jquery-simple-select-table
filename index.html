@@ -70,9 +70,9 @@
   <script>
   $('#callbacks').simpleSelectTable({
   }).on('row:selected', function(e, $row) {
-    $('#message').append('selected: ' + $row.data('id') + ' ');
+    $('#message').append('<div>selected: ' + $row.data('id') + '</div>');
   }).on('row:unselected', function(e, $row) {
-    $('#message').append('unselected: ' + $row.data('id') + ' ');
+    $('#message').append('<div>unselected: ' + $row.data('id') + '</div>');
   });
   </script>
 </body>
