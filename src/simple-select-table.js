@@ -107,7 +107,7 @@ export default class SimpleSelectTable {
       this.checkBetween($curr, $next);
     } else if (ctrl) {
       this.toggleCheck($next);
-    } else if (!$curr || !$curr.is($next)) {
+    } else {
       this.move($curr, $next);
     }
   }
