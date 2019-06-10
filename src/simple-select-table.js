@@ -8,7 +8,7 @@ const DEFAULTS = {
   rowSelector: 'td:not(:has(:checkbox))',
   useShiftClick: true,
   useCtrlClick: true,
-  useUpDownKey: true
+  useUpDownKey: false
 };
 
 export default class SimpleSelectTable {
@@ -20,6 +20,8 @@ export default class SimpleSelectTable {
     this.$current = null;
 
     this.uid = new Date().getTime() + Math.random();
+    this.namespace = `${NAMESPACE}-${this.uid}`;
+
     this.active = false;
     this.disableUserSelect = false;
 
@@ -35,31 +37,31 @@ export default class SimpleSelectTable {
 
   bind() {
     if (this.options.headCheckbox) {
-      this.$table.on('click.${NAMESPACE}', this.options.headCheckbox, (e) => {
+      this.$table.on('click.${this.namespace}', this.options.headCheckbox, (e) => {
         this.setChecked($(e.currentTarget).prop('checked'));
       });
     }
 
     if (this.options.rowSelector) {
-      this.$table.on(`click.${NAMESPACE}`, this.options.rowSelector, (e) => {
+      this.$table.on(`click.${this.namespace}`, this.options.rowSelector, (e) => {
         let shift = this.options.useShiftClick && e.shiftKey;
         let ctrl = this.options.useCtrlClick && e.ctrlKey;
-        this.click($(e.currentTarget).closest('tr'), shift, ctrl);
+        this.clicked($(e.currentTarget).closest('tr'), shift, ctrl);
       });
     }
 
     if (this.options.useShiftClick || this.options.useCtrlClick) {
-      this.$table.on(`mousedown.${NAMESPACE}`, (e) => {
+      this.$table.on(`mousedown.${this.namespace}`, (e) => {
         if (e.ctrlKey || e.shiftKey) {
           this.disableUserSelect = true;
           this.$table.addClass('user-select-none');
         }
-      }).on(`mouseup.${NAMESPACE}`, (e) => {
+      }).on(`mouseup.${this.namespace}`, (e) => {
         if (e.ctrlKey || e.shiftKey) {
           this.disableUserSelect = false;
           this.$table.removeClass('user-select-none');
         }
-      }).on(`selectstart.${NAMESPACE}`, (e) => {
+      }).on(`selectstart.${this.namespace}`, (e) => {
         if (this.disableUserSelect) {
           return false;
         } else {
@@ -69,23 +71,24 @@ export default class SimpleSelectTable {
     }
 
     if (this.options.useUpDownKey) {
-      this.$document.on(`click.${NAMESPACE}-${this.uid}`, (e) => {
+      this.$document.on(`click.${this.namespace}`, (e) => {
         if ($.contains(this.$table[0], e.target)) {
           this.active = true;
         } else {
           this.active = false;
         }
-      }).on(`keydown.${NAMESPACE}-${this.uid}`, (e) => {
+      }).on(`keydown.${this.namespace}`, (e) => {
         if (this.active) {
           this.keydown(e.keyCode);
+          e.preventDefault();
         }
       });
     }
   }
 
   unbind() {
-    this.$table.off(`.${NAMESPACE}`);
-    this.$document.on(`click.${NAMESPACE}-${this.uid}`);
+    this.$table.off(`.${this.namespace}`);
+    this.$document.on(`.${this.namespace}`);
   }
 
   checkboxes($row) {
@@ -96,7 +99,7 @@ export default class SimpleSelectTable {
     return $row.find(this.options.dataCheckbox).filter(':enabled');
   }
 
-  click($next, shift = false, ctrl = false) {
+  clicked($next, shift = false, ctrl = false) {
     let $curr = this.$current;
 
     if (shift && $curr && $curr.length) {
@@ -104,7 +107,7 @@ export default class SimpleSelectTable {
       this.checkBetween($curr, $next);
     } else if (ctrl) {
       this.toggleCheck($next);
-    } else {
+    } else if (!$curr || !$curr.is($next)) {
       this.move($curr, $next);
     }
   }
