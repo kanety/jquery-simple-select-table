@@ -1,6 +1,5 @@
 import $ from 'jquery';
 
-import './jquery-simple-select-table.scss';
 import SimpleSelectTable from './simple-select-table';
 import { NAMESPACE } from './consts';
 

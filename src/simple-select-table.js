@@ -1,5 +1,6 @@
 import $ from 'jquery';
 
+import './simple-select-table.scss';
 import { NAMESPACE } from './consts';
 
 const DEFAULTS = {
