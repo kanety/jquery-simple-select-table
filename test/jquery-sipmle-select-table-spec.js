@@ -1,3 +1,5 @@
+const NAMESPACE = 'simple-select-table';
+
 describe('jquery-simple-select-table', () => {
   beforeEach(() => {
     document.body.innerHTML = __html__['index.html'];
@@ -23,14 +25,14 @@ describe('jquery-simple-select-table', () => {
 
     it('selects table rows', () => {
       $td.eq(0).click();
-      expect($tr.eq(0).hasClass('row-selected')).toEqual(true);
-      expect($tr.eq(1).hasClass('row-selected')).toEqual(false);
+      expect($tr.eq(0).hasClass(`${NAMESPACE}-selected`)).toEqual(true);
+      expect($tr.eq(1).hasClass(`${NAMESPACE}-selected`)).toEqual(false);
       expect($cb.eq(0).is(':checked')).toEqual(true);
       expect($cb.eq(1).is(':checked')).toEqual(false);
   
       $td.eq(1).click();
-      expect($tr.eq(0).hasClass('row-selected')).toEqual(false);
-      expect($tr.eq(1).hasClass('row-selected')).toEqual(true);
+      expect($tr.eq(0).hasClass(`${NAMESPACE}-selected`)).toEqual(false);
+      expect($tr.eq(1).hasClass(`${NAMESPACE}-selected`)).toEqual(true);
       expect($cb.eq(0).is(':checked')).toEqual(false);
       expect($cb.eq(1).is(':checked')).toEqual(true);
     });
@@ -38,8 +40,8 @@ describe('jquery-simple-select-table', () => {
     it('handles ctrl + click', () => {
       $td.eq(0).click();
       $td.eq(1).trigger($.Event('click', { ctrlKey: true }));
-      expect($tr.eq(0).hasClass('row-selected')).toEqual(true);
-      expect($tr.eq(1).hasClass('row-selected')).toEqual(false);
+      expect($tr.eq(0).hasClass(`${NAMESPACE}-selected`)).toEqual(true);
+      expect($tr.eq(1).hasClass(`${NAMESPACE}-selected`)).toEqual(false);
       expect($cb.eq(0).is(':checked')).toEqual(true);
       expect($cb.eq(1).is(':checked')).toEqual(true);
     });
@@ -47,8 +49,8 @@ describe('jquery-simple-select-table', () => {
     it('handles shift + click', () => {
       $td.eq(0).click();
       $td.eq(3).trigger($.Event('click', { shiftKey: true }));
-      expect($tr.eq(0).hasClass('row-selected')).toEqual(true);
-      expect($tr.eq(1).hasClass('row-selected')).toEqual(false);
+      expect($tr.eq(0).hasClass(`${NAMESPACE}-selected`)).toEqual(true);
+      expect($tr.eq(1).hasClass(`${NAMESPACE}-selected`)).toEqual(false);
       expect($cb.filter(':checked').length).toEqual(4);
     });
 
@@ -56,12 +58,12 @@ describe('jquery-simple-select-table', () => {
       $td.eq(0).click();
 
       $(document).trigger($.Event('keydown', { keyCode: 40 }));
-      expect($tr.eq(0).hasClass('row-selected')).toEqual(false);
-      expect($tr.eq(1).hasClass('row-selected')).toEqual(true);
+      expect($tr.eq(0).hasClass(`${NAMESPACE}-selected`)).toEqual(false);
+      expect($tr.eq(1).hasClass(`${NAMESPACE}-selected`)).toEqual(true);
 
       $(document).trigger($.Event('keydown', { keyCode: 38 }));
-      expect($tr.eq(0).hasClass('row-selected')).toEqual(true);
-      expect($tr.eq(1).hasClass('row-selected')).toEqual(false);
+      expect($tr.eq(0).hasClass(`${NAMESPACE}-selected`)).toEqual(true);
+      expect($tr.eq(1).hasClass(`${NAMESPACE}-selected`)).toEqual(false);
     });
   });
 

@@ -55,12 +55,12 @@ export default class SimpleSelectTable {
       this.$table.on(`mousedown.${this.namespace}`, (e) => {
         if (e.ctrlKey || e.shiftKey) {
           this.disableUserSelect = true;
-          this.$table.addClass('user-select-none');
+          this.$table.addClass(`${NAMESPACE}-user-select-none`);
         }
       }).on(`mouseup.${this.namespace}`, (e) => {
         if (e.ctrlKey || e.shiftKey) {
           this.disableUserSelect = false;
-          this.$table.removeClass('user-select-none');
+          this.$table.removeClass(`${NAMESPACE}-user-select-none`);
         }
       }).on(`selectstart.${this.namespace}`, (e) => {
         if (this.disableUserSelect) {
@@ -123,14 +123,14 @@ export default class SimpleSelectTable {
   select($row) {
     if ($row && $row.length) {
       this.$current = $row;
-      $row.addClass('row-selected');
+      $row.addClass(`${NAMESPACE}-selected`);
       this.$table.trigger('row:selected', [$row]);
     }
   }
 
   unselect($row) {
     if ($row && $row.length) {
-      $row.removeClass('row-selected');
+      $row.removeClass(`${NAMESPACE}-selected`);
       this.$table.trigger('row:unselected', [$row]);
       this.$current = null;
     }
